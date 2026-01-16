@@ -1,0 +1,336 @@
+@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap");
+
+ * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#entrance {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+
+  background:
+    radial-gradient(120% 90% at 50% 60%,
+      #7b1d1d 0%,
+      #2b0d12 35%,
+      #0b1324 70%,
+      #05080f 100%);
+}
+.samurai-light {
+  position: absolute;
+  left: 50%;
+  bottom: 18%;
+  transform: translateX(-50%);
+  width: clamp(600px, 80vw, 1400px);
+  height: clamp(420px, 70vh, 1200px);
+
+  background:
+    radial-gradient(circle at 50% 50%,
+      rgba(255,60,60,0.9) 0%,
+      rgba(255,40,40,0.6) 20%,
+      rgba(255,20,20,0.35) 38%,
+      rgba(120,0,0,0.2) 55%,
+      transparent 70%);
+
+  filter: blur(120px);
+  mix-blend-mode: screen;
+  z-index: 3;
+  pointer-events: none;
+}
+.bg-text {
+  position: absolute;
+  top: 52%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-4deg);
+
+  /* font-family: "Kamikaze", sans-serif; */
+  font-family: "Permanent Marker", cursive;
+  font-size: clamp(40px, 30vw, 120px);
+  line-height: 0.85;
+  text-align: center;
+
+  color: black;
+
+  text-shadow:
+    0 6px 18px rgba(0,0,0,0.45);
+
+  mix-blend-mode: overlay;
+  z-index: 2;
+  pointer-events: none;
+}
+.texture {
+  position: absolute;
+  inset: 0;
+  background: url("/textures/grain.png") repeat;
+  opacity: 0.15;
+  mix-blend-mode: overlay;
+  z-index: 10;
+  pointer-events: none;
+}
+
+
+/* Samurai */
+.samurai {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: clamp(220px, 40vw, 720px);
+  transform: translateX(-50%) scale(1.05);
+  opacity: 0;
+  animation: samuraiReveal 3s ease forwards;
+  z-index: 8;
+}
+
+/* Background red atmosphere */
+.samurai-bg {
+  position: absolute;
+  left: 50%;
+  bottom: 14%;
+  transform: translateX(-50%);
+  width: clamp(300px, 70vw, 1400px);
+  height: clamp(180px, 48vh, 1200px);
+  pointer-events: none;
+  z-index: 4;
+  background:
+    radial-gradient(46% 36% at 40% 45%, rgba(255,110,110,1) 0%, rgba(255,80,80,0.7) 22%, rgba(255,60,60,0.36) 42%, transparent 58%),
+    radial-gradient(68% 50% at 60% 62%, rgba(255,90,70,0.86) 0%, rgba(255,60,50,0.46) 30%, transparent 66%),
+    radial-gradient(86% 60% at 50% 84%, rgba(255,120,120,0.38) 0%, transparent 56%);
+  filter: blur(clamp(18px, 8vw, 72px)) saturate(1.6);
+  mix-blend-mode: screen;
+  opacity: 0;
+  animation: samuraiBgFade 1s cubic-bezier(.2,.9,.2,1) forwards;
+  animation-delay: 0.7s;
+}
+
+@keyframes samuraiBgFade {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.86);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+/* 🔥 CORRECTED HIP GLOW */
+.samurai-glow {
+  --hip-offset: 6%;
+
+  position: absolute;
+  left: 50%;
+  bottom: 18%;
+  transform: translateX(-50%) translateX(var(--hip-offset)) scale(0.95);
+
+  width: clamp(220px, 42vw, 900px);
+  height: clamp(160px, 42vh, 900px);
+
+  pointer-events: none;
+  z-index: 6;
+
+  background:
+    radial-gradient(closest-side at 32% 42%,
+      rgba(255,40,40,1) 0%,
+      rgba(255,30,30,0.95) 10%,
+      rgba(230,20,20,0.75) 22%,
+      rgba(180,10,10,0.45) 38%,
+      transparent 68%),
+    radial-gradient(140% 90% at 60% 62%,
+      rgba(255,80,80,0.22) 0%,
+      transparent 50%);
+
+  filter: blur(clamp(28px, 12vw, 120px)) saturate(3.6) brightness(5.2);
+  opacity: 0;
+  mix-blend-mode: screen;
+
+  animation: samuraiGlowSpread 0.75s cubic-bezier(.1,.95,.15,1) forwards;
+  animation-delay: 0.5s;
+}
+
+@keyframes samuraiGlowSpread {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateX(var(--hip-offset)) scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateX(var(--hip-offset)) scale(1);
+  }
+}
+
+/* Eye Glow */
+.eye-glow {
+  position: absolute;
+  width: 450px;
+  height: 450px;
+  border-radius: 50%;
+  background: red;
+  top: 12%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  box-shadow:
+    0 0 12px red,
+    0 0 30px rgb(132, 40, 40),
+    0 0 50px red;
+  animation: eyeSpark 1.5s ease forwards;
+  animation-delay: 2.8s;
+}
+
+@keyframes eyeSpark {
+  0% { opacity: 0; transform: translateX(-50%) scale(0.5); }
+  60% { opacity: 1; transform: translateX(-50%) scale(1.3); }
+  100% { opacity: 0.9; transform: translateX(-50%) scale(1); }
+}
+
+/* Fog */
+.fog {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) scale(1.02);
+  width: clamp(800px, 120vw, 2000px);
+  opacity: 0.6;
+  z-index: 2;
+  filter: blur(8px);
+}
+
+/* Cherry Blossom Particles */
+.blossom-particle {
+  position: absolute;
+  width: clamp(150px, 40vw, 1020px);
+  height: clamp(150px, 40vw, 1020px);
+  opacity: 0.7;
+  z-index: 7;
+  pointer-events: none;
+  animation: blossomFlow linear infinite;
+}
+
+@keyframes blossomFlow {
+  0% {
+    left: -10%;
+    opacity: 0.7;
+    transform: scale(0.8);
+  }
+  5% {
+    opacity: 0.7;
+  }
+  95% {
+    opacity: 0.7;
+  }
+  100% {
+    left: 110%;
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+.blossom-1 {
+  top: 5%;
+  animation-duration: 8s;
+  animation-delay: 0s;
+}
+
+.blossom-2 {
+  top: 15%;
+  animation-duration: 8.5s;
+  animation-delay: 0.5s;
+}
+
+.blossom-3 {
+  top: 25%;
+  animation-duration: 8.2s;
+  animation-delay: 1s;
+}
+
+.blossom-4 {
+  top: 35%;
+  animation-duration: 8.8s;
+  animation-delay: 1.5s;
+}
+
+.blossom-5 {
+  top: 45%;
+  animation-duration: 8.1s;
+  animation-delay: 2s;
+}
+
+.blossom-6 {
+  top: 55%;
+  animation-duration: 8.6s;
+  animation-delay: 2.5s;
+}
+
+.blossom-7 {
+  top: 70%;
+  animation-duration: 8.3s;
+  animation-delay: 3s;
+}
+
+.blossom-8 {
+  top: 85%;
+  animation-duration: 8.7s;
+  animation-delay: 3.5s;
+}
+
+/* Tablet */
+@media (max-width: 720px) {
+  .samurai-glow { --hip-offset: 4%; }
+}
+
+/* Mobile */
+@media (max-width: 420px) {
+  .samurai-glow { --hip-offset: 2%; }
+  .samurai { width: clamp(160px, 80vw, 420px); }
+
+  /* Mobile Blossom positions - lower half only */
+  .blossom-1 {
+    top: 55%;
+  }
+
+  .blossom-2 {
+    top: 60%;
+  }
+
+  .blossom-3 {
+    top: 65%;
+  }
+
+  .blossom-4 {
+    top: 70%;
+  }
+
+  .blossom-5 {
+    top: 75%;
+  }
+
+  .blossom-6 {
+    top: 80%;
+  }
+
+  .blossom-7 {
+    top: 85%;
+  }
+
+  .blossom-8 {
+    top: 90%;
+  }
+}
+@keyframes samuraiReveal {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) scale(1.05);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+#entrance.exit {
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
