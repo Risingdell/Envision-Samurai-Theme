@@ -1,9 +1,10 @@
-import KatanaNavbar from "./KatanaNavbar";
+import Navbar from "./Navbar";
 import "../Styles/pages.css";
+
 export default function Layout({ children }) {
   return (
     <>
-      <KatanaNavbar />
+      <Navbar />
       {children}
     </>
   );
