@@ -1,0 +1,446 @@
+:root {
+  --samurai-black: #05080f;
+  --samurai-dark: #0b1324;
+  --samurai-red-dark: #2b0d12;
+  --samurai-red: #7b1d1d;
+  --samurai-glow: #ff3b3b;
+}
+
+.katana-nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 70px;
+  display: flex;
+  z-index: 100;
+  background: rgba(5, 8, 15, 0.85);
+  border-bottom: 1px solid rgba(255, 60, 60, 0.3);
+  align-items: center;
+  border-radius: 0 0 40px 40px;
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.7),
+    0 10px 20px rgba(255, 60, 60, 0.3);
+}
+
+.tsuka {
+  width: 220px;
+  height: 70px;
+  background: linear-gradient(
+    to bottom,
+    var(--samurai-red-dark),
+    var(--samurai-red)
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-right: 2px solid rgba(255, 60, 60, 0.5);
+  flex-shrink: 0;
+  z-index: 5;
+}
+
+.tsuka:hover {
+  background: linear-gradient(
+    to bottom,
+    #3d1818,
+    #9d2626
+  );
+  box-shadow: 0 0 20px rgba(255, 60, 60, 0.4);
+}
+
+/* Texture effect */
+.tsuka::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 20%,
+    rgba(255, 255, 255, 0.08),
+    transparent 60%
+  );
+  opacity: 0.4;
+  pointer-events: none;
+  border-radius: 0 4px 4px 0;
+}
+
+.logo {
+  color: #f5f5f5;
+  letter-spacing: 4px;
+  font-size: 16px;
+  text-decoration: none;
+  position: relative;
+  z-index: 2;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.tsuka:hover .logo {
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255, 60, 60, 0.5);
+}
+
+.blade-container {
+  flex: 1;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: visible;
+}
+
+.blade {
+  height: 60px;
+  width: 3px;
+  background: linear-gradient(
+    90deg,
+    #111,
+    #f5f5f5 30%,
+    #fff 50%,
+    #e8e8e8 70%,
+    #111
+  );
+  box-shadow: 
+    2px 0 12px rgba(0, 0, 0, 0.9),
+    -2px 0 12px rgba(0, 0, 0, 0.9),
+    0 0 8px rgba(255, 60, 60, 0.4),
+    inset 0 0 2px rgba(255, 255, 255, 0.6);
+  position: relative;
+  margin-left: 20px;
+}
+
+/* Sharp edge effect with shadow */
+.blade::before {
+  content: "";
+  position: absolute;
+  left: -6px;
+  top: -10px;
+  width: 12px;
+  height: calc(100% + 20px);
+  background: radial-gradient(
+    ellipse 100% 50% at 50% 0%,
+    rgba(255, 60, 60, 0.6),
+    rgba(255, 60, 60, 0.2),
+    transparent
+  );
+  pointer-events: none;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: 40px;
+  padding-left: 40px;
+  list-style: none;
+  flex: 1;
+  position: relative;
+  z-index: 3;
+}
+
+.nav-links li {
+  color: #ccc;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.nav-links a {
+  color: #ccc;
+  text-decoration: none;
+  letter-spacing: 2px;
+  font-size: 14px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.nav-links a::before {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ff3b3b, transparent);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #ff3b3b;
+  text-shadow: 0 0 10px rgba(255, 60, 60, 0.5);
+}
+
+.nav-links a:hover::before {
+  width: 100%;
+}
+
+.saya {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 70px;
+  width: 100%;
+  background: #1a1a1a;
+  z-index: 4;
+  transform: translateX(0);
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding-left: 20px;
+}
+
+/* Saya curved sheath styling */
+.saya::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 12px;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    #000,
+    #1a1a1a
+  );
+  border-radius: 0 20px 20px 0;
+}
+
+/* Red horizontal line on saya */
+.saya::after {
+  content: "";
+  position: absolute;
+  bottom: 20px;
+  left: 10px;
+  width: calc(100% - 20px);
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    #ff3b3b,
+    transparent
+  );
+  opacity: 0.8;
+  z-index: 1;
+}
+
+/* Vertical red lines on saya - 3 lines near the handle */
+.saya {
+  background: 
+    linear-gradient(90deg, 
+      #1a1a1a 0%, 
+      #1a1a1a calc(3% - 1px), 
+      #ff3b3b calc(3% - 1px), 
+      #ff3b3b 3%, 
+      #1a1a1a 3%, 
+      #1a1a1a calc(8% - 1px), 
+      #ff3b3b calc(8% - 1px), 
+      #ff3b3b 8%, 
+      #1a1a1a 8%, 
+      #1a1a1a calc(13% - 1px), 
+      #ff3b3b calc(13% - 1px), 
+      #ff3b3b 13%, 
+      #1a1a1a 13%
+    );
+}
+
+/* Top red line on saya */
+.saya {
+  border-top: 2px solid #ff3b3b;
+}
+
+.katana-nav:hover .saya,
+.katana-nav.open .saya {
+  transform: translateX(100%);
+}
+
+.katana-nav::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--samurai-red),
+    transparent
+  );
+  opacity: 0.6;
+  z-index: 6;
+}
+
+.katana-nav::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("/textures/grain.png") repeat;
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Slash Line Effect - Horizontal line moving from top to bottom */
+.slash-line {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    #ff3b3b,
+    #ff6b6b,
+    #ff3b3b,
+    transparent
+  );
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 0 0 15px rgba(255, 60, 60, 0.8);
+  transition: opacity 0.5s ease;
+  z-index: 1;
+  animation: slashFall 1.2s ease-in-out forwards;
+  animation-play-state: paused;
+}
+
+@keyframes slashFall {
+  0% {
+    top: 70px;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    top: 100vh;
+    opacity: 0;
+  }
+}
+
+/* Create curved glow effect */
+.slash-line::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 0;
+  width: 100%;
+  height: 16px;
+  background: radial-gradient(
+    ellipse 100% 50% at 50% 50%,
+    rgba(255, 60, 60, 0.4),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.slash-line::after {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 0;
+  width: 100%;
+  height: 24px;
+  background: radial-gradient(
+    ellipse 100% 40% at 50% 50%,
+    rgba(255, 60, 60, 0.2),
+    transparent 60%
+  );
+  pointer-events: none;
+}
+
+.katana-nav:hover .slash-line,
+.katana-nav.open .slash-line {
+  animation-play-state: running;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .katana-nav {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .tsuka {
+    width: 100%;
+    height: 70px;
+    border-right: none;
+    border-bottom: 2px solid rgba(255, 60, 60, 0.5);
+  }
+
+  .blade-container {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .blade {
+    display: none;
+  }
+
+  .saya {
+    position: static;
+    width: 100%;
+    max-height: 0;
+    flex-direction: column;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    transform: translateX(0);
+    border-top: 1px solid rgba(255, 60, 60, 0.3);
+  }
+
+  .katana-nav.open .saya {
+    max-height: 400px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 0;
+    padding: 20px;
+    width: 100%;
+    height: auto;
+  }
+
+  .nav-links li {
+    width: 100%;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255, 60, 60, 0.2);
+  }
+
+  .nav-links li:last-child {
+    border-bottom: none;
+  }
+
+  .slash-line {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .tsuka {
+    height: 60px;
+  }
+
+  .logo {
+    font-size: 14px;
+    letter-spacing: 2px;
+  }
+
+  .nav-links {
+    padding: 15px;
+  }
+
+  .nav-links li {
+    padding: 12px 0;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    letter-spacing: 1px;
+  }
+}
