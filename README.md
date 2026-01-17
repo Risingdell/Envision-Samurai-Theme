@@ -1,6 +1,14 @@
+
 # Envision - Event Management Platform
 
 A modern, full-stack web application built for managing and showcasing events, team members, and sponsors. Built with React, Vite, Tailwind CSS, and Express.js.
+
+
+<div align="center">
+  <img src="public/env-logo.png" alt="Envision Logo" width="200" />
+</div>
+
+ENVISION 2026
 
 ## 📋 Project Overview
 
