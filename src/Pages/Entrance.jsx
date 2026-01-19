@@ -1,49 +1,49 @@
 import "../styles/entrance.css";
 import samurai from "../assets/samurai.png";
-import Katana from "../assets/katana.png";
 import fog from "../assets/fog.png";
 import cherryBlossom from "../assets/cherry-blossom.png";
-import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
-export default function Entrance() {
-  const navigate = useNavigate(); // ✅ INSIDE component
-
+export default function Entrance({ onFinish }) {
   useEffect(() => {
-  const timer = setTimeout(() => {
-    document.getElementById("entrance")?.classList.add("exit");
-    setTimeout(() => navigate("/home"), 700);
-  }, 5000);
+    const TOTAL_DURATION = 10000; // 10 seconds
+    const EXIT_DURATION = 1200;
 
-  return () => clearTimeout(timer);
-}, [navigate]);
+    const exitTimer = setTimeout(() => {
+      document.getElementById("entrance")?.classList.add("exit");
+    }, TOTAL_DURATION - EXIT_DURATION);
 
+    const finishTimer = setTimeout(() => {
+      onFinish();
+    }, TOTAL_DURATION);
+
+    return () => {
+      clearTimeout(exitTimer);
+      clearTimeout(finishTimer);
+    };
+  }, [onFinish]);
 
   return (
     <div id="entrance">
+      <div className="top-banner">WELCOME TO ENVISON 26</div>
 
-      <img src={fog} alt="fog" className="fog" />
+      <img src={fog} className="fog" alt="" />
+      <div className="samurai-light" />
+      <div className="bg-text">FIGHT LIKE YOU&apos;RE DEAD</div>
+      <div className="samurai-bg" />
+      <div className="samurai-glow" />
+      <img src={samurai} className="samurai" alt="" />
+      <div className="texture" />
+      <div className="eye-glow" />
 
-      <div className="samurai-light"></div>
-      <div className="bg-text">FIGHT LIKE YOU'RE DEAD</div>
-      <div className="samurai-bg" aria-hidden="true"></div>
-      <div className="samurai-glow" aria-hidden="true"></div>
-
-      <img src={samurai} className="samurai" alt="samurai" />
-
-      <div className="texture"></div>
-      <div className="eye-glow"></div>
-
-      {/* Cherry Blossom Particles */}
-      <img src={cherryBlossom} className="blossom-particle blossom-1" alt="" />
-      <img src={cherryBlossom} className="blossom-particle blossom-2" alt="" />
-      <img src={cherryBlossom} className="blossom-particle blossom-3" alt="" />
-      <img src={cherryBlossom} className="blossom-particle blossom-4" alt="" />
-      <img src={cherryBlossom} className="blossom-particle blossom-5" alt="" />
-      <img src={cherryBlossom} className="blossom-particle blossom-6" alt="" />
-      <img src={cherryBlossom} className="blossom-particle blossom-7" alt="" />
-      <img src={cherryBlossom} className="blossom-particle blossom-8" alt="" />
-
+      {Array.from({ length: 8 }).map((_, i) => (
+        <img
+          key={i}
+          src={cherryBlossom}
+          className={`blossom-particle blossom-${i + 1}`}
+          alt=""
+        />
+      ))}
     </div>
   );
 }
