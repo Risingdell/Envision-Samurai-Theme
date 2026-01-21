@@ -32,43 +32,46 @@ export default function Loader({ onFinish }) {
   });
 
   tl
-  // LEFT SWORD - from top-left corner, crossing through center
+  // LEFT SWORD - from top-left corner, crossing through center with glow
   .fromTo(
     leftSwordWrap.current,
     {
       x: "-90vw",
       y: "-90vh",
       rotate: 0,
-      opacity: 0
+      opacity: 0,
+      filter: "drop-shadow(0 0 0px rgba(255, 60, 60, 0))"
     },
     {
       x: 0,
       y: 0,
       rotate: 0,
       opacity: 1,
+      filter: "drop-shadow(0 0 12px rgba(255, 60, 60, 0.6))",
       duration: 1.2
     }
   )
 
-  // RIGHT SWORD - from top-right corner, crossing through center
+  // RIGHT SWORD - from top-right corner, crossing through center with glow
   .fromTo(
     rightSwordWrap.current,
     {
       x: "90vw",
       y: "-90vh",
       rotate: 0,
-      opacity: 0
+      opacity: 0,
+      filter: "drop-shadow(0 0 0px rgba(255, 60, 60, 0))"
     },
     {
       x: 0,
       y: 0,
       rotate: 0,
       opacity: 1,
+      filter: "drop-shadow(0 0 12px rgba(255, 60, 60, 0.6))",
       duration: 1.2
     },
     "<"
   )
-
 
     // CLASH
     .to(glowRef.current, {
@@ -87,8 +90,19 @@ export default function Loader({ onFinish }) {
       duration: 0.4
     })
 
+    // BREATHING GLOW - after clash, swords glow with breathing effect
+    .to(leftSwordWrap.current, {
+      filter: "drop-shadow(0 0 8px rgba(255, 60, 60, 0.3))",
+      duration: 0.1
+    }, 1.75)
+
+    .to(rightSwordWrap.current, {
+      filter: "drop-shadow(0 0 8px rgba(255, 60, 60, 0.3))",
+      duration: 0.1
+    }, 1.75)
+
     // HOLD
-    .to({}, { duration: 0.6 })
+    .to({}, { duration: 0.3 })
 
     // FADE OUT
     .to(loaderRef.current, {

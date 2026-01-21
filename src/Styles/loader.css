@@ -9,6 +9,24 @@
   z-index: 9999;
 }
 
+/* Ultra-subtle film grain micro-detail */
+.loader::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.015),
+      rgba(255, 255, 255, 0.015) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.8;
+}
+
 /* GSAP animates this */
 .katana-wrapper {
   position: absolute;
@@ -67,9 +85,19 @@
 .enter-text {
   position: absolute;
   bottom: 40px;
-  color: #aaa;
+  color: #d4af8f;
   font-family: serif;
   letter-spacing: 2px;
+  font-size: clamp(12px, 1.5vw, 16px);
+  opacity: 0.6;
+  animation: ctaPulse 3s ease-in-out infinite;
+  animation-delay: 2s;
+  transition: all 0.3s ease;
+}
+
+.enter-text:hover {
+  opacity: 1;
+  text-shadow: 0 0 12px rgba(212, 175, 143, 0.5);
 }
 
 /* Logo fade-in animation */
@@ -81,5 +109,32 @@
   to {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+/* Breathing glow effect on swords (after animation settles) */
+@keyframes breathingGlow {
+  0% {
+    filter: drop-shadow(0 0 6px rgba(255, 60, 60, 0.2));
+  }
+  50% {
+    filter: drop-shadow(0 0 14px rgba(255, 60, 60, 0.5));
+  }
+  100% {
+    filter: drop-shadow(0 0 6px rgba(255, 60, 60, 0.2));
+  }
+}
+
+.katana-wrapper.breathing {
+  animation: breathingGlow 5s ease-in-out infinite;
+}
+
+/* CTA subtle pulse */
+@keyframes ctaPulse {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.95;
   }
 }
