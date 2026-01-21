@@ -54,14 +54,19 @@
   line-height: 0.85;
   text-align: center;
 
-  color: black;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: bold;
 
   text-shadow:
-    0 6px 18px rgba(0,0,0,0.45);
+    0 4px 12px rgba(0,0,0,0.6),
+    0 0 20px rgba(255, 60, 60, 0.4);
 
-  mix-blend-mode: overlay;
+  mix-blend-mode: screen;
   z-index: 2;
   pointer-events: none;
+  opacity: 0;
+  animation: textFadeIn 1.5s ease-out forwards;
+  animation-delay: 1.5s;
 }
 .texture {
   position: absolute;
@@ -205,28 +210,35 @@
   position: absolute;
   width: clamp(150px, 40vw, 1020px);
   height: clamp(150px, 40vw, 1020px);
-  opacity: 0.7;
+  opacity: 0;
   z-index: 7;
   pointer-events: none;
   animation: blossomFlow linear infinite;
+  filter: blur(2px);
 }
 
 @keyframes blossomFlow {
   0% {
     left: -10%;
-    opacity: 0.7;
-    transform: scale(0.8);
+    opacity: 0;
+    transform: scale(0.8) translateY(0px);
   }
-  5% {
+  2% {
+    opacity: 0.5;
+  }
+  10% {
     opacity: 0.7;
   }
-  95% {
+  90% {
     opacity: 0.7;
+  }
+  98% {
+    opacity: 0.3;
   }
   100% {
     left: 110%;
     opacity: 0;
-    transform: scale(1);
+    transform: scale(1) translateY(20px);
   }
 }
 
@@ -385,6 +397,18 @@
   to {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* Text fade-in animation */
+@keyframes textFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(-4deg) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(-4deg) scale(1);
   }
 }
 

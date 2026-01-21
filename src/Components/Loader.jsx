@@ -32,37 +32,37 @@ export default function Loader({ onFinish }) {
   });
 
   tl
-  // LEFT SWORD
+  // LEFT SWORD - from top-left corner, crossing through center
   .fromTo(
     leftSwordWrap.current,
     {
-      x: "-120vw",
-      y: "-120vh",
-      rotate: -20,
+      x: "-90vw",
+      y: "-90vh",
+      rotate: 0,
       opacity: 0
     },
     {
-      x: -40,
-      y: 40,
-      rotate: -45,
+      x: 0,
+      y: 0,
+      rotate: 0,
       opacity: 1,
       duration: 1.2
     }
   )
 
-  // RIGHT SWORD
+  // RIGHT SWORD - from top-right corner, crossing through center
   .fromTo(
     rightSwordWrap.current,
     {
-      x: "120vw",
-      y: "-120vh",
-      rotate: 20,
+      x: "90vw",
+      y: "-90vh",
+      rotate: 0,
       opacity: 0
     },
     {
-      x: 40,
-      y: -40,
-      rotate: 45,
+      x: 0,
+      y: 0,
+      rotate: 0,
       opacity: 1,
       duration: 1.2
     },

@@ -21,7 +21,7 @@
   /* ✅ correct pivot near handle */
   transform-origin: 50% 75%;
 
-  z-index: 1;
+  z-index: 1;  /* Behind logo (z-index: 3) */
   pointer-events: none;
 }
 
@@ -46,6 +46,9 @@
 
   height: auto;
   pointer-events: none;
+
+  opacity: 0;
+  animation: logoFadeIn 0.8s ease-in forwards;
 }
 
 /* Clash glow */
@@ -67,4 +70,16 @@
   color: #aaa;
   font-family: serif;
   letter-spacing: 2px;
+}
+
+/* Logo fade-in animation */
+@keyframes logoFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
