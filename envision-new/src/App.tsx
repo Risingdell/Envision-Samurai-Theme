@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import Lenis from 'lenis'
 import Navbar from './components/Navbar'
 import LeafCanvas from './components/LeafCanvas'
 import CountdownTimer from './components/CountdownTimer'
@@ -7,7 +6,6 @@ import { BentoTilt } from './components/BentoTilt'
 import { BentoCard } from './components/BentoCard'
 import Footer from './components/Footer'
 import './App.css'
-import 'lenis/dist/lenis.css'
 import heroTitleImg from './assets/hero-title.png'
 import mainBg from './assets/main-bg.png'
 import timmerBanner from './assets/timmer-banner.png'
@@ -16,32 +14,9 @@ import startingLogo from './assets/Starting-logo.png'
 export default function App() {
   const [showScrollIndicator, setShowScrollIndicator] = useState(true)
 
-  // Scroll to top on page load/reload
-  useEffect(() => {
-    window.scrollTo(0, 0)
-    document.documentElement.scrollTop = 0
-    document.body.scrollTop = 0
-  }, [])
+  // Scroll to top on page load/reload - NOW HANDLED IN LAYOUT
+  // Initialize Lenis smooth scroll - NOW HANDLED IN LAYOUT
 
-  // Initialize Lenis smooth scroll
-  useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-    })
-
-    function raf(time: number) {
-      lenis.raf(time)
-      requestAnimationFrame(raf)
-    }
-
-    requestAnimationFrame(raf)
-
-    return () => {
-      lenis.destroy()
-    }
-  }, [])
 
   // Scroll Detection to hide/show scroll indicator
   useEffect(() => {

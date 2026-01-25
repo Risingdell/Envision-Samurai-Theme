@@ -35,10 +35,10 @@ export default function Events() {
                     Go to Home
                 </Link>
                 <div className="nav-right">
-                    <button className="nav-btn dashboard-btn">
+                    <Link to="/profile" className="nav-btn dashboard-btn">
                         Dashboard
                         <svg viewBox="0 0 24 24" className="icon arrow-right"><path fill="currentColor" d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"></path></svg>
-                    </button>
+                    </Link>
                 </div>
             </nav>
 
