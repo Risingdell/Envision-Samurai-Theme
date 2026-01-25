@@ -1,9 +1,12 @@
 import "../Styles/navbar.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useCart } from "../context/CartContext";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { getCartCount } = useCart();
+  const cartCount = getCartCount();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -31,6 +34,12 @@ export default function Navbar() {
         <li><Link to="/team" onClick={closeMenu}>Team</Link></li>
         <li><Link to="/sponsors" onClick={closeMenu}>Sponsors</Link></li>
         <li><Link to="/about" onClick={closeMenu}>About</Link></li>
+        <li>
+          <Link to="/cart" onClick={closeMenu} className="cart-link">
+            <span className="cart-icon">🛒</span>
+            {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
+          </Link>
+        </li>
       </ul>
     </nav>
   );

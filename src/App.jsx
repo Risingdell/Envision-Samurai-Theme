@@ -9,6 +9,9 @@ import Events from "./Pages/Events";
 import Team from "./Pages/Team";
 import Sponsors from "./Pages/Sponsors";
 import About from "./Pages/About";
+import Cart from "./Pages/Cart";
+import Checkout from "./Pages/Checkout";
+import OrderSuccess from "./Pages/OrderSuccess";
 
 function App() {
   const [phase, setPhase] = useState("loader");
@@ -32,6 +35,9 @@ function App() {
           <Route path="/team" element={<Team />} />
           <Route path="/sponsors" element={<Sponsors />} />
           <Route path="/about" element={<About />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/order-success/:orderId" element={<OrderSuccess />} />
         </Routes>
       )}
     </>

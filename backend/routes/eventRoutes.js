@@ -5,13 +5,17 @@ const router = express.Router();
 
 router.get("/", (req, res) => {
   const sql = `
-    SELECT 
-      d.department_name,
+    SELECT
+      e.id,
       e.event_name,
-      e.event_type
+      e.description,
+      e.fee,
+      e.event_type,
+      e.is_mega_event,
+      d.department_name
     FROM events e
     JOIN departments d ON d.id = e.department_id
-    ORDER BY d.department_name, e.event_type
+    ORDER BY e.event_type, e.event_name
   `;
 
   db.query(sql, (err, rows) => {
@@ -20,24 +24,18 @@ router.get("/", (req, res) => {
       return res.status(500).json({ message: "Failed to fetch events" });
     }
 
-    const grouped = {};
+    // Return events as array with all details
+    const events = rows.map(row => ({
+      id: row.id,
+      name: row.event_name,
+      description: row.description || "No description available",
+      fee: parseFloat(row.fee) || 0,
+      type: row.event_type,
+      isMegaEvent: row.is_mega_event || 0,
+      department: row.department_name
+    }));
 
-    rows.forEach(row => {
-      if (!grouped[row.department_name]) {
-        grouped[row.department_name] = {
-          technical: [],
-          nonTechnical: []
-        };
-      }
-
-      if (row.event_type === "Technical") {
-        grouped[row.department_name].technical.push(row.event_name);
-      } else {
-        grouped[row.department_name].nonTechnical.push(row.event_name);
-      }
-    });
-
-    res.json(grouped);
+    res.json(events);
   });
 });
 
