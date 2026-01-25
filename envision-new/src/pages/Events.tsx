@@ -1,28 +1,61 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Events.css';
-// Re-using the main background for consistency, or a specific one if available
 import mainBg from '../assets/main-bg.png';
+import { fetchEvents, type Event } from '../services/api';
+import { EventCard } from '../components/EventCard';
 
 export default function Events() {
     const [searchQuery, setSearchQuery] = useState('');
-    const [activeDay, setActiveDay] = useState('All Days');
     const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState('All Categories');
+    const [events, setEvents] = useState<Event[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
+    // Category mapping for filtering
     const categories = [
         'All Categories',
-        'Sports and Gaming',
-        'Literary',
         'Technical',
-        'Cultural',
-        'Fine Arts'
+        'Non-Technical'
     ];
+
+    useEffect(() => {
+        loadEvents();
+    }, []);
+
+    const loadEvents = async () => {
+        try {
+            setLoading(true);
+            const data = await fetchEvents();
+            setEvents(data);
+            setError(null);
+        } catch (err) {
+            setError('Failed to load events. Please make sure the backend server is running.');
+            console.error('Error loading events:', err);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const handleCategorySelect = (category: string) => {
         setSelectedCategory(category);
         setShowCategoryDropdown(false);
     };
+
+    // Filter events based on search and category
+    const filteredEvents = events.filter(event => {
+        // Search filter (event name or description)
+        const matchesSearch = searchQuery === '' ||
+            event.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            (event.description && event.description.toLowerCase().includes(searchQuery.toLowerCase()));
+
+        // Category filter
+        const matchesCategory = selectedCategory === 'All Categories' ||
+            event.type === selectedCategory;
+
+        return matchesSearch && matchesCategory;
+    });
 
     return (
         <div className="events-root" style={{ backgroundImage: `url(${mainBg})` }}>
@@ -50,7 +83,7 @@ export default function Events() {
                 {/* Info Card */}
                 <div className="events-info-card">
                     <div className="info-main-text">
-                        Register <span className="highlight-text">₹000</span> and participate in <span className="highlight-text"> events</span>
+                        Register <span className="highlight-text">₹000</span> and participate in <span className="highlight-text">events</span>
                     </div>
                     <div className="info-sub-text">— no extra charges later!</div>
                     <div className="info-divider"></div>
@@ -109,10 +142,29 @@ export default function Events() {
                         </button>
                     </div>
                 </div>
-                {/* Events List / Empty State */}
-                <div className="events-grid-empty">
-                    <p>No events found matching your criteria.</p>
-                </div>
+
+                {/* Events Grid */}
+                {loading ? (
+                    <div className="events-loading">
+                        <div className="loading-spinner"></div>
+                        <p>Loading events...</p>
+                    </div>
+                ) : error ? (
+                    <div className="events-error">
+                        <p>{error}</p>
+                        <button onClick={loadEvents} className="retry-btn">Try Again</button>
+                    </div>
+                ) : filteredEvents.length === 0 ? (
+                    <div className="events-grid-empty">
+                        <p>No events found matching your criteria.</p>
+                    </div>
+                ) : (
+                    <div className="events-bento-grid">
+                        {filteredEvents.map((event) => (
+                            <EventCard key={event.id} event={event} />
+                        ))}
+                    </div>
+                )}
             </div>
         </div>
     );

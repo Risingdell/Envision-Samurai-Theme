@@ -10,6 +10,7 @@ import heroTitleImg from './assets/hero-title.png'
 import mainBg from './assets/main-bg.png'
 import timmerBanner from './assets/timmer-banner.png'
 import startingLogo from './assets/Starting-logo.png'
+import allEventsBg from './assets/events/all-events.png'
 
 export default function App() {
   const [showScrollIndicator, setShowScrollIndicator] = useState(true)
@@ -112,7 +113,7 @@ export default function App() {
               {/* Row 1: All Events (Wide) */}
               <BentoTilt className="bento-card-wide">
                 <BentoCard
-                  src={mainBg}
+                  src={allEventsBg}
                   title="ALL EVENTS"
                   description="Explore every challenge and celebration."
                 />
