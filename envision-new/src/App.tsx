@@ -11,6 +11,7 @@ import mainBg from './assets/main-bg.png'
 import timmerBanner from './assets/timmer-banner.png'
 import startingLogo from './assets/Starting-logo.png'
 import allEventsBg from './assets/events/all-events.png'
+import nonTechBg from './assets/events/non-tech.png'
 
 export default function App() {
   const [showScrollIndicator, setShowScrollIndicator] = useState(true)
@@ -142,7 +143,7 @@ export default function App() {
 
                   <BentoTilt className="bento-card-standard">
                     <BentoCard
-                      src={mainBg}
+                      src={nonTechBg}
                       title="NON TECHNICAL"
                       description="Creativity beyond code."
                     />
