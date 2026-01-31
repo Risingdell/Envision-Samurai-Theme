@@ -1,17 +1,22 @@
-# Mark TypeScript as the primary language
+# TypeScript files (primary language)
 *.ts linguist-detectable=true
 *.tsx linguist-detectable=true
 
-# Mark JavaScript files as config/backend (not primary frontend code)
-*.js linguist-language=TypeScript
-eslint.config.js linguist-documentation
-postcss.config.js linguist-documentation
-tailwind.config.js linguist-documentation
-vite.config.ts linguist-documentation
+# Exclude backend from language statistics (it's Node.js backend, not frontend)
+backend/** linguist-vendored
 
-# Backend folder is separate (keep as JavaScript)
-backend/** linguist-language=JavaScript
+# Exclude config files from language statistics
+eslint.config.js linguist-vendored
+postcss.config.js linguist-vendored
+tailwind.config.js linguist-vendored
+vite.config.ts linguist-vendored
 
-# Documentation and config files
+# Exclude build artifacts and dependencies
+dist/** linguist-generated
+node_modules/** linguist-vendored
+
+# Documentation files
 *.md linguist-documentation
-*.json linguist-documentation
+*.json linguist-data
+LICENSE linguist-documentation
+README.md linguist-documentation
