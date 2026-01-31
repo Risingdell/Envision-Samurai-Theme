@@ -1,0 +1,22 @@
+# TypeScript files (primary language)
+*.ts linguist-detectable=true
+*.tsx linguist-detectable=true
+
+# Exclude backend from language statistics (it's Node.js backend, not frontend)
+backend/** linguist-vendored
+
+# Exclude config files from language statistics
+eslint.config.js linguist-vendored
+postcss.config.js linguist-vendored
+tailwind.config.js linguist-vendored
+vite.config.ts linguist-vendored
+
+# Exclude build artifacts and dependencies
+dist/** linguist-generated
+node_modules/** linguist-vendored
+
+# Documentation files
+*.md linguist-documentation
+*.json linguist-data
+LICENSE linguist-documentation
+README.md linguist-documentation
