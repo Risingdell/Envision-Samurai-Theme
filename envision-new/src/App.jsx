@@ -7,7 +7,7 @@ import { BentoCard } from './components/BentoCard'
 import Footer from './components/Footer'
 import './App.css'
 import heroTitleImg from './assets/hero-title.png'
-import mainBg from './assets/main-bg.png'
+import landscapeVideo from './assets/bg-video/landscape.mp4'
 import timmerBanner from './assets/timmer-banner.png'
 import startingLogo from './assets/Starting-logo.png'
 import allEventsBg from './assets/events/all-events.png'
@@ -39,13 +39,17 @@ export default function App() {
       className="app"
       onContextMenu={(e) => e.preventDefault()} // Disable right-click
     >
-      {/* Background Image */}
+      {/* Background Video */}
       <div className="background-container">
-        <img
-          src={mainBg}
-          alt="Samurai Forest"
-          className="background-image"
-        />
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="background-video"
+        >
+          <source src={landscapeVideo} type="video/mp4" />
+        </video>
       </div>
 
       {/* Leaf Animation Overlay */}
