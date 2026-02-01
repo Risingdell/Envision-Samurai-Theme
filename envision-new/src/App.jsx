@@ -20,10 +20,15 @@ export default function App() {
   // Initialize Lenis smooth scroll - NOW HANDLED IN LAYOUT
 
 
-  // Scroll Detection to hide/show scroll indicator
+  // Scroll Detection to hide/show scroll indicator and update scroll variable for parallax
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
+      const scrolled = window.scrollY
+
+      // Update CSS custom property for parallax effect
+      document.documentElement.style.setProperty('--scroll', scrolled.toString())
+
+      if (scrolled > 50) {
         setShowScrollIndicator(false)
       } else {
         setShowScrollIndicator(true)
