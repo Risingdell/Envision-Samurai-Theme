@@ -21,7 +21,7 @@ export default function Layout() {
             smoothWheel: true,
         })
 
-        function raf(time: number) {
+        function raf(time) {
             lenis.raf(time)
             requestAnimationFrame(raf)
         }
