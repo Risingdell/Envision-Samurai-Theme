@@ -6,6 +6,9 @@
 *.jsx linguist-detectable=true
 *.js linguist-detectable=true
 
+# Exclude backend from language statistics (separate Node.js backend)
+backend/** linguist-vendored
+
 # Exclude config files from language statistics
 eslint.config.js linguist-vendored
 postcss.config.js linguist-vendored
