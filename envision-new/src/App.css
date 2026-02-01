@@ -98,9 +98,6 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
-    /* High quality video rendering */
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
 }
 
 /* Fallback for background image if still used elsewhere */
