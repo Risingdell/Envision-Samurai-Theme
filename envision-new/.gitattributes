@@ -1,12 +1,10 @@
-# TypeScript/React files (primary language)
-*.ts linguist-language=TypeScript
-*.tsx linguist-language=TSX
+# React JSX files (primary language)
 *.jsx linguist-language=JSX
+*.js linguist-language=JavaScript
 
 # Mark as detectable
-*.ts linguist-detectable=true
-*.tsx linguist-detectable=true
 *.jsx linguist-detectable=true
+*.js linguist-detectable=true
 
 # Exclude config files from language statistics
 eslint.config.js linguist-vendored
