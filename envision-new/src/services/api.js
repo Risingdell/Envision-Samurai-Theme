@@ -2,28 +2,10 @@
 
 const API_BASE_URL = 'http://localhost:5000/api';
 
-export interface Event {
-    id: number;
-    name: string;
-    description: string | null;
-    fee: number;
-    type: 'Technical' | 'Non-Technical';
-    isMegaEvent: number;
-    department: string;
-}
-
-export interface TeamMember {
-    id: number;
-    name: string;
-    role: string;
-    image_url: string;
-    team_name: string;
-}
-
 /**
  * Fetch all events from the backend
  */
-export async function fetchEvents(): Promise<Event[]> {
+export async function fetchEvents() {
     try {
         const response = await fetch(`${API_BASE_URL}/events`);
         if (!response.ok) {
@@ -40,7 +22,7 @@ export async function fetchEvents(): Promise<Event[]> {
 /**
  * Fetch team members
  */
-export async function fetchTeamMembers(): Promise<TeamMember[]> {
+export async function fetchTeamMembers() {
     try {
         const response = await fetch(`${API_BASE_URL}/team`);
         if (!response.ok) {

@@ -1,18 +1,12 @@
 import { useState, useRef } from 'react';
-import type { MouseEvent } from 'react';
-import type { Event } from '../services/api';
 import './EventCard.css';
 
-interface EventCardProps {
-    event: Event;
-}
-
-export const EventCard = ({ event }: EventCardProps) => {
+export const EventCard = ({ event }) => {
     const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
     const [hoverOpacity, setHoverOpacity] = useState(0);
-    const cardRef = useRef<HTMLDivElement>(null);
+    const cardRef = useRef(null);
 
-    const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    const handleMouseMove = (e) => {
         if (!cardRef.current) return;
         const rect = cardRef.current.getBoundingClientRect();
         setCursorPosition({

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const HomeIcon: React.FC<{ className?: string }> = ({ className = "w-8 h-8" }) => (
+export const HomeIcon = ({ className = "w-8 h-8" }) => (
     <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
             d="M12 3L4 9V21H9V14H15V21H20V9L12 3Z"
@@ -16,7 +16,7 @@ export const HomeIcon: React.FC<{ className?: string }> = ({ className = "w-8 h-
     </svg>
 );
 
-export const EventsIcon: React.FC<{ className?: string }> = ({ className = "w-8 h-8" }) => (
+export const EventsIcon = ({ className = "w-8 h-8" }) => (
     <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
             d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3Z"
@@ -36,7 +36,7 @@ export const EventsIcon: React.FC<{ className?: string }> = ({ className = "w-8 
     </svg>
 );
 
-export const ItineraryIcon: React.FC<{ className?: string }> = ({ className = "w-8 h-8" }) => (
+export const ItineraryIcon = ({ className = "w-8 h-8" }) => (
     <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
             d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 5.02944 7.02944 1 12 1C16.9706 1 21 5.02944 21 10Z"
@@ -60,7 +60,7 @@ export const ItineraryIcon: React.FC<{ className?: string }> = ({ className = "w
     </svg>
 );
 
-export const SponsorIcon: React.FC<{ className?: string }> = ({ className = "w-8 h-8" }) => (
+export const SponsorIcon = ({ className = "w-8 h-8" }) => (
     <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
             d="M20 6H4C2.9 6 2 6.9 2 8V16C2 17.1 2.9 18 4 18H20C21.1 18 22 17.1 22 16V8C22 6.9 21.1 6 20 6Z"
@@ -89,7 +89,7 @@ export const SponsorIcon: React.FC<{ className?: string }> = ({ className = "w-8
     </svg>
 );
 
-export const AboutIcon: React.FC<{ className?: string }> = ({ className = "w-8 h-8" }) => (
+export const AboutIcon = ({ className = "w-8 h-8" }) => (
     <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle
             cx="12"
