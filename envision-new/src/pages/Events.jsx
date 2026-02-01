@@ -2,16 +2,16 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Events.css';
 import mainBg from '../assets/main-bg.png';
-import { fetchEvents, type Event } from '../services/api';
+import { fetchEvents } from '../services/api';
 import { EventCard } from '../components/EventCard';
 
 export default function Events() {
     const [searchQuery, setSearchQuery] = useState('');
     const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState('All Categories');
-    const [events, setEvents] = useState<Event[]>([]);
+    const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+    const [error, setError] = useState(null);
 
     // Category mapping for filtering
     const categories = [
@@ -38,7 +38,7 @@ export default function Events() {
         }
     };
 
-    const handleCategorySelect = (category: string) => {
+    const handleCategorySelect = (category) => {
         setSelectedCategory(category);
         setShowCategoryDropdown(false);
     };
