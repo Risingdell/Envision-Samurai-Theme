@@ -16,27 +16,20 @@ export default function Navbar() {
     const navigate = useNavigate()
     const location = useLocation()
     const [activeLink, setActiveLink] = useState('home')
-    const navContainerRef = useRef<HTMLElement>(null)
+    const navContainerRef = useRef(null)
     const isAutoScrolling = useRef(false) // Track if scroll is initiated by click
 
 
     const [isNavVisible, setIsNavVisible] = useState(true)
     const [lastScrollY, setLastScrollY] = useState(0)
 
-    type NavLink = {
-        id: string;
-        label: string;
-        Icon?: React.FC<{ className?: string }>;
-        iconImg?: string;
-    }
-
-    const navLinks: NavLink[] = [
+    const navLinks = [
         { id: 'home', label: 'Home', iconImg: homeIconImg },
         { id: 'events', label: 'Event', iconImg: eventIconImg },
         { id: 'profile', label: 'Profile', iconImg: profileIconImg },
     ]
 
-    const handleLinkClick = (id: string, e: React.MouseEvent) => {
+    const handleLinkClick = (id, e) => {
         e.preventDefault()
         setActiveLink(id)
 
