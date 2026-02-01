@@ -84,7 +84,7 @@
 
 /* ===== Background ===== */
 .background-container {
-    position: fixed;
+    position: sticky;
     top: 0;
     left: 0;
     width: 100%;
@@ -101,8 +101,6 @@
     /* High quality video rendering */
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
-    /* Apply parallax scroll effect */
-    transform: translateY(calc(var(--scroll) * 0.5px));
 }
 
 /* Fallback for background image if still used elsewhere */
@@ -375,6 +373,18 @@ body::-webkit-scrollbar {
     text-align: center;
     position: relative;
     /* Required for absolute positioning of scroll indicator */
+}
+
+.hero-title-img {
+    display: block;
+    width: 80%;
+    max-width: 600px;
+    height: auto;
+    object-fit: contain;
+    margin-bottom: 2rem;
+    z-index: 20;
+    position: relative;
+    /* Keep relative to stack above video */
 }
 
 .hero-title {

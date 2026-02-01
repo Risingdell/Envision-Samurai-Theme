@@ -8,6 +8,7 @@ import Footer from './components/Footer'
 import './App.css'
 import heroTitleImg from './assets/hero-title.png'
 import landscapeVideo from './assets/bg-video/landscape.mp4'
+import mainBg from './assets/main-bg.png'
 import timmerBanner from './assets/timmer-banner.png'
 import startingLogo from './assets/Starting-logo.png'
 import allEventsBg from './assets/events/all-events.png'
@@ -15,20 +16,16 @@ import nonTechBg from './assets/events/non-tech.png'
 
 export default function App() {
   const [showScrollIndicator, setShowScrollIndicator] = useState(true)
+  const [videoError, setVideoError] = useState(false)
 
   // Scroll to top on page load/reload - NOW HANDLED IN LAYOUT
   // Initialize Lenis smooth scroll - NOW HANDLED IN LAYOUT
 
 
-  // Scroll Detection to hide/show scroll indicator and update scroll variable for parallax
+  // Scroll Detection to hide/show scroll indicator
   useEffect(() => {
     const handleScroll = () => {
-      const scrolled = window.scrollY
-
-      // Update CSS custom property for parallax effect
-      document.documentElement.style.setProperty('--scroll', scrolled.toString())
-
-      if (scrolled > 50) {
+      if (window.scrollY > 50) {
         setShowScrollIndicator(false)
       } else {
         setShowScrollIndicator(true)
@@ -46,15 +43,28 @@ export default function App() {
     >
       {/* Background Video */}
       <div className="background-container">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="background-video"
-        >
-          <source src={landscapeVideo} type="video/mp4" />
-        </video>
+        {!videoError ? (
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="background-video"
+            onError={(e) => {
+              console.error('Video failed to load:', e)
+              setVideoError(true)
+            }}
+            onLoadedData={() => console.log('Video loaded successfully')}
+          >
+            <source src={landscapeVideo} type="video/mp4" />
+          </video>
+        ) : (
+          <img
+            src={mainBg}
+            alt="Background"
+            className="background-image"
+          />
+        )}
       </div>
 
       {/* Leaf Animation Overlay */}
