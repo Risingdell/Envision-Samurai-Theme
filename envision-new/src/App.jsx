@@ -9,6 +9,7 @@ import './App.css'
 import heroTitleImg from './assets/hero-title.png'
 import landscapeVideo from './assets/bg-video/landscape.mp4'
 import mainBg from './assets/main-bg.png'
+import extraImg01 from './assets/all-bg/extra-img-01.png'
 import timmerBanner from './assets/timmer-banner.png'
 import startingLogo from './assets/Starting-logo.png'
 import allEventsBg from './assets/events/all-events.png'
@@ -41,30 +42,42 @@ export default function App() {
       className="app"
       onContextMenu={(e) => e.preventDefault()} // Disable right-click
     >
-      {/* Background Video */}
+      {/* Background Container */}
       <div className="background-container">
-        {!videoError ? (
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="background-video"
-            onError={(e) => {
-              console.error('Video failed to load:', e)
-              setVideoError(true)
-            }}
-            onLoadedData={() => console.log('Video loaded successfully')}
-          >
-            <source src={landscapeVideo} type="video/mp4" />
-          </video>
-        ) : (
+        {/* Top: Video Background */}
+        <div className="bg-video-section">
+          {!videoError ? (
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="background-video"
+              onError={(e) => {
+                console.error('Video failed to load:', e)
+                setVideoError(true)
+              }}
+              onLoadedData={() => console.log('Video loaded successfully')}
+            >
+              <source src={landscapeVideo} type="video/mp4" />
+            </video>
+          ) : (
+            <img
+              src={mainBg}
+              alt="Background"
+              className="background-image"
+            />
+          )}
+        </div>
+
+        {/* Bottom: Extra Image Background */}
+        <div className="bg-image-section">
           <img
-            src={mainBg}
-            alt="Background"
-            className="background-image"
+            src={extraImg01}
+            alt="Content Background"
+            className="background-extra-img"
           />
-        )}
+        </div>
       </div>
 
       {/* Leaf Animation Overlay */}
