@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { useState } from "react";
+import "./App.css";
 
 import Loader from "./Components/Loader";
 import Entrance from "./Pages/Entrance";
@@ -9,6 +10,7 @@ import Events from "./Pages/Events";
 import Team from "./Pages/Team";
 import Sponsors from "./Pages/Sponsors";
 import About from "./Pages/About";
+import Profile from "./Pages/Profile";
 import Cart from "./Pages/Cart";
 import Checkout from "./Pages/Checkout";
 import OrderSuccess from "./Pages/OrderSuccess";
@@ -35,6 +37,7 @@ function App() {
           <Route path="/team" element={<Team />} />
           <Route path="/sponsors" element={<Sponsors />} />
           <Route path="/about" element={<About />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/order-success/:orderId" element={<OrderSuccess />} />

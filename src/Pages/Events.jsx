@@ -1,145 +1,171 @@
-import { useEffect, useState } from "react";
-import Layout from "../Components/Layout";
-import { useCart } from "../context/CartContext";
-import "../Styles/Events.css";
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import './Events.css';
+import mainBg from '../assets/main-bg.png';
+import { fetchEvents } from '../services/api';
+import { EventCard } from '../components/EventCard';
 
 export default function Events() {
-  const [events, setEvents] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [activeCategory, setActiveCategory] = useState("all");
-  const [toast, setToast] = useState({ show: false, message: "" });
-  const { addToCart, isInCart } = useCart();
+    const [searchQuery, setSearchQuery] = useState('');
+    const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState('All Categories');
+    const [events, setEvents] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-  useEffect(() => {
-    fetch("http://localhost:5000/api/events")
-      .then(res => res.json())
-      .then(data => {
-        // Ensure data is an array
-        if (Array.isArray(data)) {
-          setEvents(data);
-        } else {
-          console.error("API response is not an array:", data);
-          setEvents([]);
+    // Category mapping for filtering
+    const categories = [
+        'All Categories',
+        'Technical',
+        'Non-Technical'
+    ];
+
+    useEffect(() => {
+        loadEvents();
+    }, []);
+
+    const loadEvents = async () => {
+        try {
+            setLoading(true);
+            const data = await fetchEvents();
+            setEvents(data);
+            setError(null);
+        } catch (err) {
+            setError('Failed to load events. Please make sure the backend server is running.');
+            console.error('Error loading events:', err);
+        } finally {
+            setLoading(false);
         }
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error("Error fetching events:", err);
-        setEvents([]);
-        setLoading(false);
-      });
-  }, []);
+    };
 
-  const handleAddToCart = (event) => {
-    const success = addToCart(event);
-    if (success) {
-      showToast(`${event.name} added to cart!`);
-    } else {
-      showToast(`${event.name} is already in cart!`);
-    }
-  };
+    const handleCategorySelect = (category) => {
+        setSelectedCategory(category);
+        setShowCategoryDropdown(false);
+    };
 
-  const showToast = (message) => {
-    setToast({ show: true, message });
-    setTimeout(() => {
-      setToast({ show: false, message: "" });
-    }, 3000);
-  };
+    // Filter events based on search and category
+    const filteredEvents = events.filter(event => {
+        // Search filter (event name or description)
+        const matchesSearch = searchQuery === '' ||
+            event.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            (event.description && event.description.toLowerCase().includes(searchQuery.toLowerCase()));
 
-  const getFilteredEvents = () => {
-    // Ensure events is always an array
-    const eventsArray = Array.isArray(events) ? events : [];
+        // Category filter
+        const matchesCategory = selectedCategory === 'All Categories' ||
+            event.type === selectedCategory;
 
-    if (activeCategory === "all") return eventsArray;
-    if (activeCategory === "mega") return eventsArray.filter(e => e.isMegaEvent === 1);
-    if (activeCategory === "technical") return eventsArray.filter(e => e.type === "Technical" && e.isMegaEvent !== 1);
-    if (activeCategory === "non-technical") return eventsArray.filter(e => e.type === "Non-Technical" && e.isMegaEvent !== 1);
-    return eventsArray;
-  };
+        return matchesSearch && matchesCategory;
+    });
 
-  const filteredEvents = getFilteredEvents();
-
-  if (loading) {
     return (
-      <Layout>
-        <div className="events-container">
-          <p className="loading-text">Loading events...</p>
+        <div className="events-root" style={{ backgroundImage: `url(${mainBg})` }}>
+            <div className="events-overlay"></div>
+
+            {/* Top Navigation Bar */}
+            <nav className="events-nav">
+                <Link to="/" className="nav-btn back-btn">
+                    <svg viewBox="0 0 24 24" className="icon"><path fill="currentColor" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path></svg>
+                    Go to Home
+                </Link>
+                <div className="nav-right">
+                    <Link to="/profile" className="nav-btn dashboard-btn">
+                        Dashboard
+                        <svg viewBox="0 0 24 24" className="icon arrow-right"><path fill="currentColor" d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"></path></svg>
+                    </Link>
+                </div>
+            </nav>
+
+            {/* Main Content Glass Container */}
+            <div className="events-glass-container">
+                <h1 className="events-title">Events</h1>
+                <p className="events-subtitle">20+ Events, Infinite Possibilities – Ignite Your Passion, Unleash Your Talent!</p>
+
+                {/* Info Card */}
+                <div className="events-info-card">
+                    <div className="info-main-text">
+                        Register <span className="highlight-text">₹000</span> and participate in <span className="highlight-text">events</span>
+                    </div>
+                    <div className="info-sub-text">— no extra charges later!</div>
+                    <div className="info-divider"></div>
+                    <div className="info-contacts">
+                        <div className="contact-item">
+                            <span className="phone-icon">📞</span> add number
+                        </div>
+                        <div className="contact-item">
+                            <span className="phone-icon">📞</span> add number
+                        </div>
+                        <div className="contact-item">
+                            <span className="phone-icon">📞</span> add number
+                        </div>
+                    </div>
+                </div>
+
+                {/* Filters Row */}
+                <div className="events-filters">
+                    <div className="search-bar">
+                        <input
+                            type="text"
+                            placeholder="Search epic quests here..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                        <svg viewBox="0 0 24 24" className="search-icon"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
+                    </div>
+
+                    <div className="filter-buttons">
+                        <div className="category-dropdown-container">
+                            <button
+                                className={`filter-btn ${showCategoryDropdown ? 'active' : ''}`}
+                                onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}
+                            >
+                                <span className="icon">✨</span> {selectedCategory}
+                            </button>
+                            {showCategoryDropdown && (
+                                <div className="category-dropdown-menu">
+                                    {categories.map((cat) => (
+                                        <div
+                                            key={cat}
+                                            className="category-item"
+                                            onClick={() => handleCategorySelect(cat)}
+                                        >
+                                            {cat}
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                        <button className="filter-btn">
+                            <span className="icon">📖</span> Rule Book
+                        </button>
+                        <button className="filter-btn">
+                            <span className="icon">🕒</span> Schedule
+                        </button>
+                    </div>
+                </div>
+
+                {/* Events Grid */}
+                {loading ? (
+                    <div className="events-loading">
+                        <div className="loading-spinner"></div>
+                        <p>Loading events...</p>
+                    </div>
+                ) : error ? (
+                    <div className="events-error">
+                        <p>{error}</p>
+                        <button onClick={loadEvents} className="retry-btn">Try Again</button>
+                    </div>
+                ) : filteredEvents.length === 0 ? (
+                    <div className="events-grid-empty">
+                        <p>No events found matching your criteria.</p>
+                    </div>
+                ) : (
+                    <div className="events-bento-grid">
+                        {filteredEvents.map((event) => (
+                            <EventCard key={event.id} event={event} />
+                        ))}
+                    </div>
+                )}
+            </div>
         </div>
-      </Layout>
     );
-  }
-
-  return (
-    <Layout>
-      <div className="events-container">
-        <div className="events-header">
-          <h1 className="events-title">Events</h1>
-          <p className="events-subtitle">Test your skill. Prove your discipline.</p>
-        </div>
-
-        {/* Category Tabs */}
-        <div className="category-tabs">
-          <button
-            className={`category-tab ${activeCategory === "all" ? "active" : ""}`}
-            onClick={() => setActiveCategory("all")}
-          >
-            All Events
-          </button>
-          <button
-            className={`category-tab ${activeCategory === "technical" ? "active" : ""}`}
-            onClick={() => setActiveCategory("technical")}
-          >
-            Technical
-          </button>
-          <button
-            className={`category-tab ${activeCategory === "non-technical" ? "active" : ""}`}
-            onClick={() => setActiveCategory("non-technical")}
-          >
-            Non-Technical
-          </button>
-          <button
-            className={`category-tab ${activeCategory === "mega" ? "active" : ""}`}
-            onClick={() => setActiveCategory("mega")}
-          >
-            Mega Events
-          </button>
-        </div>
-
-        {/* Events Grid */}
-        <div className="events-grid">
-          {filteredEvents.length === 0 ? (
-            <p className="no-events">No events found in this category.</p>
-          ) : (
-            filteredEvents.map((event) => (
-              <div key={event.id} className="event-card">
-                {event.isMegaEvent === 1 && <div className="mega-badge">MEGA</div>}
-                <div className="event-card-header">
-                  <h3 className="event-name">{event.name}</h3>
-                  <span className="event-type-badge">{event.type}</span>
-                </div>
-                <p className="event-description">{event.description}</p>
-                <div className="event-footer">
-                  <span className="event-fee">₹{event.fee}</span>
-                  <button
-                    className={`add-to-cart-btn ${isInCart(event.id) ? "added" : ""}`}
-                    onClick={() => handleAddToCart(event)}
-                    disabled={isInCart(event.id)}
-                  >
-                    {isInCart(event.id) ? "Added ✓" : "Add to Cart"}
-                  </button>
-                </div>
-              </div>
-            ))
-          )}
-        </div>
-
-        {/* Toast Notification */}
-        {toast.show && (
-          <div className="toast-notification">
-            {toast.message}
-          </div>
-        )}
-      </div>
-    </Layout>
-  );
 }
