@@ -1,21 +1,10 @@
 import { useState, useEffect } from 'react'
 import './CountdownTimer.css'
 
-interface CountdownTimerProps {
-    targetDate: string
-}
-
-interface TimeLeft {
-    days: number
-    hours: number
-    minutes: number
-    seconds: number
-}
-
-export default function CountdownTimer({ targetDate }: CountdownTimerProps) {
-    const calculateTimeLeft = (): TimeLeft => {
+export default function CountdownTimer({ targetDate }) {
+    const calculateTimeLeft = () => {
         const difference = +new Date(targetDate) - +new Date()
-        let timeLeft: TimeLeft = { days: 0, hours: 0, minutes: 0, seconds: 0 }
+        let timeLeft = { days: 0, hours: 0, minutes: 0, seconds: 0 }
 
         if (difference > 0) {
             timeLeft = {
@@ -29,7 +18,7 @@ export default function CountdownTimer({ targetDate }: CountdownTimerProps) {
         return timeLeft
     }
 
-    const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft())
+    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft())
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -39,7 +28,7 @@ export default function CountdownTimer({ targetDate }: CountdownTimerProps) {
         return () => clearInterval(timer)
     }, [targetDate])
 
-    const formatNumber = (num: number): string => {
+    const formatNumber = (num) => {
         return num < 10 ? `0${num}` : num.toString()
     }
 

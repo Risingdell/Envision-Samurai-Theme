@@ -1,18 +1,11 @@
 import { useState, useRef } from "react";
-import type { MouseEvent, ReactNode } from "react";
 
-interface BentoCardProps {
-    src: string;
-    title: ReactNode;
-    description: string;
-}
-
-export const BentoCard = ({ src, title, description }: BentoCardProps) => {
+export const BentoCard = ({ src, title, description }) => {
     const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
     const [hoverOpacity, setHoverOpacity] = useState(0);
-    const hoverButtonRef = useRef<HTMLDivElement>(null);
+    const hoverButtonRef = useRef(null);
 
-    const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => {
+    const handleMouseMove = (event) => {
         if (!hoverButtonRef.current) return;
         const rect = hoverButtonRef.current.getBoundingClientRect();
 

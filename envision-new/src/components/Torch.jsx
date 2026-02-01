@@ -2,13 +2,8 @@ import { useEffect, useRef } from 'react'
 import torchImg from '../assets/navbar/torch.png'
 import torchFlame from '../assets/navbar/torch.png'
 
-interface TorchProps {
-    className?: string;
-    style?: React.CSSProperties;
-}
-
-export default function Torch({ className, style }: TorchProps) {
-    const canvasRef = useRef<HTMLCanvasElement>(null)
+export default function Torch({ className, style }) {
+    const canvasRef = useRef(null)
 
     useEffect(() => {
         const canvas = canvasRef.current
@@ -22,18 +17,7 @@ export default function Torch({ className, style }: TorchProps) {
         canvas.height = 220
 
         // Particle system
-        interface Particle {
-            x: number
-            y: number
-            size: number
-            speedX: number
-            speedY: number
-            life: number
-            maxLife: number
-            color: string
-        }
-
-        let particles: Particle[] = []
+        let particles = []
 
         const createParticle = () => {
             const x = canvas.width / 2 + (Math.random() - 0.5) * 30
