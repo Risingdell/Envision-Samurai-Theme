@@ -1,9 +1,12 @@
-# TypeScript files (primary language)
+# TypeScript/React files (primary language)
+*.ts linguist-language=TypeScript
+*.tsx linguist-language=TSX
+*.jsx linguist-language=JSX
+
+# Mark as detectable
 *.ts linguist-detectable=true
 *.tsx linguist-detectable=true
-
-# Exclude backend from language statistics (it's Node.js backend, not frontend)
-backend/** linguist-vendored
+*.jsx linguist-detectable=true
 
 # Exclude config files from language statistics
 eslint.config.js linguist-vendored
