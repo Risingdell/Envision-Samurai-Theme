@@ -1,43 +1,33 @@
 import { useEffect, useRef } from 'react'
 
-interface SpawnRegion {
-    xMin: number
-    xMax: number
-    yMin: number
-    yMax: number
-}
-
 const LEAF_COUNT = 200
 const COLORS = ['#e60000', '#ff3333', '#800000', '#ff6666', '#b30000', '#cc2200', '#ff4d4d']
-const SPAWN_REGIONS: SpawnRegion[] = [
+const SPAWN_REGIONS = [
     { xMin: 0.0, xMax: 0.35, yMin: 0.0, yMax: 0.50 },
     { xMin: 0.70, xMax: 1.0, yMin: 0.0, yMax: 0.50 }
 ]
 
 class RealisticLeaf {
-    x: number = 0
-    y: number = 0
-    velocityX: number = 0
-    velocityY: number = 0
-    targetSpeedY: number = 0
-    size: number = 0
-    color: string = ''
-    opacity: number = 0
-    rotation: number = 0
-    rotationSpeed: number = 0
-    flip: number = 0
-    flipSpeed: number = 0
-    swayPhase: number = 0
-    canvasWidth: number = 0
-    canvasHeight: number = 0
-
-    constructor(canvasWidth: number, canvasHeight: number) {
+    constructor(canvasWidth, canvasHeight) {
+        this.x = 0
+        this.y = 0
+        this.velocityX = 0
+        this.velocityY = 0
+        this.targetSpeedY = 0
+        this.size = 0
+        this.color = ''
+        this.opacity = 0
+        this.rotation = 0
+        this.rotationSpeed = 0
+        this.flip = 0
+        this.flipSpeed = 0
+        this.swayPhase = 0
         this.canvasWidth = canvasWidth
         this.canvasHeight = canvasHeight
         this.reset(true)
     }
 
-    reset(initial: boolean = false): void {
+    reset(initial = false) {
         const region = SPAWN_REGIONS[Math.floor(Math.random() * SPAWN_REGIONS.length)]
 
         this.x = (Math.random() * (region.xMax - region.xMin) + region.xMin) * this.canvasWidth
@@ -63,7 +53,7 @@ class RealisticLeaf {
         this.swayPhase = Math.random() * Math.PI * 2
     }
 
-    update(isHovering: boolean): void {
+    update(isHovering) {
         if (this.opacity < 1) this.opacity += 0.01
 
         if (isHovering) {
@@ -99,7 +89,7 @@ class RealisticLeaf {
         }
     }
 
-    draw(ctx: CanvasRenderingContext2D): void {
+    draw(ctx) {
         ctx.save()
         ctx.translate(this.x, this.y)
         ctx.rotate(this.rotation)
@@ -124,17 +114,17 @@ class RealisticLeaf {
         ctx.restore()
     }
 
-    updateCanvasSize(width: number, height: number): void {
+    updateCanvasSize(width, height) {
         this.canvasWidth = width
         this.canvasHeight = height
     }
 }
 
 export default function LeafCanvas() {
-    const canvasRef = useRef<HTMLCanvasElement>(null)
-    const leavesRef = useRef<RealisticLeaf[]>([])
+    const canvasRef = useRef(null)
+    const leavesRef = useRef([])
     const isHoveringRef = useRef(false)
-    const animationRef = useRef<number>(0)
+    const animationRef = useRef(0)
 
     useEffect(() => {
         const canvas = canvasRef.current
