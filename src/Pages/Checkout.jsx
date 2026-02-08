@@ -1,19 +1,29 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import { useAuth } from "../context/AuthContext";
 import Layout from "../Components/Layout";
 import "../Styles/Checkout.css";
 
 export default function Checkout() {
   const { cart, getCartTotal, clearCart } = useCart();
+  const { user, isAuthenticated } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const total = getCartTotal();
 
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/login', { state: { from: location }, replace: true });
+    }
+  }, [isAuthenticated, navigate, location]);
+
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    college: "",
+    name: user?.name || "",
+    email: user?.email || "",
+    phone: user?.phone || "",
+    college: user?.college || "",
     teamName: "",
     teamSize: 1
   });

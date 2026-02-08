@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import './Events.css';
+import '../Styles/Events.css';
 import mainBg from '../assets/main-bg.png';
 import { fetchEvents } from '../services/api';
-import { EventCard } from '../components/EventCard';
+import { EventCard } from '../Components/EventCard';
 
 export default function Events() {
     const [searchQuery, setSearchQuery] = useState('');

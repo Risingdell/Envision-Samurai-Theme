@@ -3,7 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom'
 import Lenis from 'lenis'
 import 'lenis/dist/lenis.css'
 
-export default function Layout() {
+export default function Layout({ children }) {
     const { pathname } = useLocation()
 
     // Scroll to top on route change
@@ -35,7 +35,7 @@ export default function Layout() {
 
     return (
         <div className="layout-wrapper">
-            <Outlet />
+            {children || <Outlet />}
         </div>
     )
 }

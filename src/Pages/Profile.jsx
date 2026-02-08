@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import './Profile.css';
+import '../Styles/Profile.css';
 import logo from '../assets/logo.png';
 import mainBg from '../assets/main-bg.png';
 
